@@ -13,11 +13,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        initLifecycle()
         binding.liveDataButton.setOnClickListener {
 
         }
+    }
 
-
+    fun initLifecycle(){
+        lifecycle.addObserver(LifeCycleObserverClass(this))
     }
 }
