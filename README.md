@@ -136,6 +136,18 @@ class MainActivity : AppCompatActivity() {
 
 ## LiveData:
 
+```
+    fun initViewModel(){
+        viewModel = ViewModelProviders.of(this).get(ViewModelClass::class.java)
+        // Make Observer:
+        val nameObserver = Observer<String> {
+            binding.message2TextView.text = it.toString()
+        }
+        // assig observer:
+        viewModel.getCurrentName().observe(this, nameObserver)
+    }
+```
+
 📄 MainActivity:
 
 ```
