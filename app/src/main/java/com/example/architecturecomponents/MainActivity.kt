@@ -2,6 +2,7 @@ package com.example.architecturecomponents
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.architecturecomponents.databinding.ActivityMainBinding
 
@@ -20,11 +21,11 @@ class MainActivity : AppCompatActivity() {
         initViewModel()
 
         binding.viewModelButton.setOnClickListener {
-            binding.message1TextView.text = (viewModel.contador++).toString()
+            binding.message1TextView.text = (++viewModel.contador).toString()
         }
 
         binding.liveDataButton.setOnClickListener {
-
+            viewModel.getCurrentName().value = "Hola amigos!!, esto es  mi contador ${viewModel.contador}"
         }
     }
 
@@ -34,5 +35,11 @@ class MainActivity : AppCompatActivity() {
 
     fun initViewModel(){
         viewModel = ViewModelProviders.of(this).get(ViewModelClass::class.java)
+        // Make Observer:
+        val nameObserver = Observer<String> {
+            binding.message2TextView.text = it.toString()
+        }
+        // assig observer:
+        viewModel.getCurrentName().observe(this, nameObserver)
     }
 }
